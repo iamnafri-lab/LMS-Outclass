@@ -2,13 +2,16 @@ const http = require("http");
 const express = require("express");
 
 import renderer from "./helpers/renderer";
-
+import createStore from "./client/store/createStore"
 const app = express();
 
 
 app.use(express.static("assets"))
 app.get("*", (req, res) => {
-  res.send(renderer());
+
+  const store = createStore();
+
+  res.send(renderer(req, store));
 });
 
 

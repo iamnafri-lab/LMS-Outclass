@@ -7,7 +7,7 @@ const config = {
   entry: ["./client/index.js"],
   output: {
     filename: "bundle.client.js",
-    path: path.resolve(__dirname, "assets"),
+    path: path.resolve(__dirname, "assets/js"),
   },
 };
 

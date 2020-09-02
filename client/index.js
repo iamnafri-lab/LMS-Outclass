@@ -1,8 +1,22 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom'
-import App from "./App";
+import Routes from "./Routes";
 
-ReactDOM.hydrate(<App />, document.getElementById("root"));
+import { BrowserRouter } from "react-router-dom";
+import { renderRoutes } from 'react-router-config'
+
+import createStore from "./store/createStore"
+import { Provider } from 'react-redux';
+
+const store = createStore();
+
+ReactDOM.hydrate(
+    <Provider store={store}>
+        <BrowserRouter>
+            {renderRoutes(Routes)}
+        </BrowserRouter>
+    </Provider>
+    , document.getElementById("root"));
