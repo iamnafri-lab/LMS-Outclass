@@ -1,17 +1,29 @@
 const http = require("http");
 const express = require("express");
 
+import { matchRoutes } from "react-router-config";
+import Routes from "./client/Routes"
 import renderer from "./helpers/renderer";
-import createStore from "./client/store/createStore"
+import createServerStore from "./helpers/createServerStore";
+
 const app = express();
 
 
-app.use(express.static("assets"))
+app.use(express.static("assets"));
+
 app.get("*", (req, res) => {
 
-  const store = createStore();
+  const store = createServerStore();
+  const loadDataPromises = matchRoutes(Routes, req.path).map(({ route }) => {
+    return route.loadData ? route.loadData() : null;
+  });
 
-  res.send(renderer(req, store));
+  Promise.all(loadDataPromises).then(() => {
+    res.send(renderer(req, store));
+  }).catch(err => {
+    res.send(err.message)
+  })
+
 });
 
 

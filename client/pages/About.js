@@ -11,7 +11,9 @@ const About = (props) => {
 };
 
 const loadData = () => {
-    console.log("About load data")
+    return new Promise((resolve, reject) => {
+        resolve(1);
+    })
 }
 
 export default {

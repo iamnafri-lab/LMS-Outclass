@@ -8,10 +8,13 @@ import Routes from "./Routes";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from 'react-router-config'
 
-import createStore from "./store/createStore"
 import { Provider } from 'react-redux';
 
-const store = createStore();
+import { configureStore } from '@reduxjs/toolkit'
+import reducers from "./store/reducers";
+
+
+const store = configureStore({ reducer: reducers, preloadedState: window.__STORE_REHYDRATION_STATE__ })
 
 ReactDOM.hydrate(
     <Provider store={store}>

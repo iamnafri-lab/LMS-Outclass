@@ -6,6 +6,7 @@ import Routes from "../client/Routes"
 import { renderRoutes } from "react-router-config"
 
 import { Provider } from 'react-redux';
+import serialize from "serialize-javascript"
 
 export default (req, store) => {
     const content = renderToString(
@@ -15,6 +16,8 @@ export default (req, store) => {
             </StaticRouter>
         </Provider>
     );
+
+    const storeRehydrationState = serialize(store.getState());
     return `
     <html>
         <head>
@@ -22,7 +25,10 @@ export default (req, store) => {
         </head>
         <body>
             <div id="root">${content}</div>
-        <script src="/js/bundle.client.js"></script>
+            <script>
+                window.__STORE_REHYDRATION_STATE__ = ${storeRehydrationState}
+            </script>
+            <script src="/js/bundle.client.js"></script>
         </body>
     </html>
 `;
