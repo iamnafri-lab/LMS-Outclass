@@ -4,20 +4,16 @@ const App = props => {
     const { route } = props;
 
     return (
-        <div>
-            <h1>App Component</h1>
+        <>
             {renderRoutes(route.routes)}
-        </div>
+        </>
     );
 }
 
-const loadData = () => {
+App.loadData = () => {
     return new Promise((resolve, reject) => {
         resolve(1);
     })
 }
 
-export default {
-    component: App,
-    loadData
-};
+export default App;

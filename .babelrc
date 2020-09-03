@@ -1,6 +1,14 @@
 {
   "presets": [
-    ["@babel/preset-env", { "targets": "defaults" }],
+    [
+      "@babel/preset-env",
+      {
+        "targets": "defaults"
+      }
+    ],
     "@babel/preset-react"
+  ],
+  "plugins": [
+    "@loadable/babel-plugin"
   ]
 }

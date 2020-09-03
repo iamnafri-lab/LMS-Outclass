@@ -1,23 +1,27 @@
-import { lazy } from 'react'
+import loadable from '@loadable/component'
 
 import App from "./App";
 
-import Home from "./pages/Home";
-import About from "./pages/About";
+const Home = loadable(() => import("./pages/Home"), { ssr: false })
+const About = loadable(() => import("./pages/About"), { ssr: false })
+const NotFound = loadable(() => import("./pages/NotFound"), { ssr: false })
+
 
 export default [
     {
-        ...App,
+        component: App,
         routes: [
             {
                 path: '/about',
-                ...About
+                component: About,
             },
             {
                 path: '/',
                 exact: true,
-                ...Home
-
+                component: Home
+            },
+            {
+                component: NotFound
             }
         ]
     }

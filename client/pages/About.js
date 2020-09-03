@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const About = (props) => {
     return (
@@ -10,13 +10,10 @@ const About = (props) => {
     );
 };
 
-const loadData = () => {
+About.loadData = () => {
     return new Promise((resolve, reject) => {
         resolve(1);
     })
 }
 
-export default {
-    component: About,
-    loadData
-};
+export default About

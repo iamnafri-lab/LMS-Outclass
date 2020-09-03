@@ -9,19 +9,26 @@ import createServerStore from "./helpers/createServerStore";
 const app = express();
 
 
-app.use(express.static("assets"));
+app.use(express.static("dist"));
 
 app.get("*", (req, res) => {
 
   const store = createServerStore();
   const loadDataPromises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData() : null;
+    return route.component.loadData ? route.component.loadData() : null;
   });
 
+
+
   Promise.all(loadDataPromises).then(() => {
-    res.send(renderer(req, store));
+    const context = {};
+    const markup = renderer(req, store, context);
+    if (context.notFound === true) res.status(404);
+
+    res.send(markup);
   }).catch(err => {
-    res.send(err.message)
+    console.log(err)
+    res.send(err)
   })
 
 });
