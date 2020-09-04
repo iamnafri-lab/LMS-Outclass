@@ -11,7 +11,8 @@ import serialize from "serialize-javascript"
 
 import { ChunkExtractor } from '@loadable/server'
 
-export default (req, store, context) => {
+import { readFileAsync } from "./file"
+export default async (req, store, context) => {
 
     const statsFile = path.resolve('./build/loadable-stats.json');
     const extractor = new ChunkExtractor({ statsFile })
@@ -27,26 +28,15 @@ export default (req, store, context) => {
     );
 
     const storeRehydrationState = serialize(store.getState());
-    // console.log("***********");
-    // console.log(req.path);
-    // console.log("SERVER HTML |" + content + "|");
-    return `
-    <html>
-        <head>
-            <title>Outclass</title>
-            <!-- Bootstrap CSS -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-            <link rel="stylesheet" href="/css/style.css">
-        </head>
-        <body>
-            <div id="root">${content}</div>
-            <script>
-                window.__STORE_REHYDRATION_STATE__ = ${storeRehydrationState}
-            </script>
-            <script src="/bundle.client.js"></script>
-           
-        </body>
-    </html>
-`;
+
+
+    let bootupHTML = await readFileAsync("./dist/bootup.html");
+
+    bootupHTML = bootupHTML.replace("<!-- __STORE_REHYDRATION_STATE__ -->", `<script>window.__STORE_REHYDRATION_STATE__ = ${storeRehydrationState};</script>`);
+
+    bootupHTML = bootupHTML.replace("<div id=\"root\"></div>", `<div id="root">${content}</div>`);
+
+    return bootupHTML;
+
 }

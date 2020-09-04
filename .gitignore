@@ -5,7 +5,7 @@
 
 
 /build
-/html
+/temp
 
 .env*
 

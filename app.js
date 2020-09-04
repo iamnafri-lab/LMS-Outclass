@@ -1,3 +1,7 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
+
 const http = require("http");
 const express = require("express");
 
@@ -20,9 +24,9 @@ app.get("*", (req, res) => {
 
 
 
-  Promise.all(loadDataPromises).then(() => {
+  Promise.all(loadDataPromises).then(async () => {
     const context = {};
-    const markup = renderer(req, store, context);
+    const markup = await renderer(req, store, context);
     if (context.notFound === true) res.status(404);
 
     res.send(markup);
@@ -34,6 +38,8 @@ app.get("*", (req, res) => {
 });
 
 
+
+
 const server = http.createServer(app);
 
 const port = process.env.PORT || 8080;
@@ -41,3 +47,5 @@ const { NODE_ENV, ABC } = process.env;
 server.listen(port, () => {
   console.log(`Server is listening on port ${port} in ${NODE_ENV} environment. ${ABC}`);
 });
+
+
