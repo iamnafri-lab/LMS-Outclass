@@ -34,6 +34,10 @@ export default (req, store, context) => {
     <html>
         <head>
             <title>Outclass</title>
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+            <link rel="stylesheet" href="/css/style.css">
         </head>
         <body>
             <div id="root">${content}</div>
@@ -41,6 +45,7 @@ export default (req, store, context) => {
                 window.__STORE_REHYDRATION_STATE__ = ${storeRehydrationState}
             </script>
             <script src="/bundle.client.js"></script>
+           
         </body>
     </html>
 `;

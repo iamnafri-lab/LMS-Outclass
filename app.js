@@ -37,6 +37,7 @@ app.get("*", (req, res) => {
 const server = http.createServer(app);
 
 const port = process.env.PORT || 8080;
+const { NODE_ENV, ABC } = process.env;
 server.listen(port, () => {
-  console.log(`Server is listening on port => ${port}`);
+  console.log(`Server is listening on port ${port} in ${NODE_ENV} environment. ${ABC}`);
 });

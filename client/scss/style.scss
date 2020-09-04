@@ -1,0 +1,49 @@
+/*!
+    Created on : Jul 24, 2020, 1:58:15 PM
+    Author     : Faizan
+*/
+$mainColor : #00acf0;
+$PoppinsFont: 'Poppins', sans-serif;
+$darkBlue : #011928;
+$headingColor:#012237;
+$lightBackground: #f1f1f1;
+$whiteColor :#fff;
+*:focus{
+    outline: 0;
+    box-shadow: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+    font-family: $PoppinsFont;
+     transition: 0.4s all !important;
+}
+@import "utilities/_navbar.scss";
+@import "utilities/_footer.scss";
+@import "utilities/_slider.scss";
+@import "utilities/_homeCmponents.scss";
+@import "utilities/_coursesComponents.scss";
+@import "utilities/_mainComponents.scss";
+@import "utilities/_content.scss";
+@import "utilities/_events.scss";
+@import "utilities/_conditions.scss";
+@import "utilities/_eventDetails.scss";
+@import "utilities/_aboutComponent.scss";
+@import "utilities/_popups.scss";
+@import "utilities/_blog.scss";
+@import "utilities/_faqs.scss";
+@import "utilities/_countdown.scss";
+@import "utilities/_blogDetail.scss";
+@import "utilities/_teachers.scss";
+@import "utilities/_forum.scss";
+@import "utilities/_cart.scss";
+@import "utilities/_dashboard.scss";
+@import "utilities/_coursesDetail.scss";
+@import "utilities/_responsive.scss";
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 999px;
+    }
+}

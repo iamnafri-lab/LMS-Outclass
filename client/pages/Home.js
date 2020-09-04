@@ -5,7 +5,7 @@ const Home = (props) => {
   return (
     <>
       <h2>Welcome to Home Page</h2>
-      <Link to="/about"><button>About</button></Link>
+      <Link to="/about" className="btn btn-primary">About</Link>
     </>
   );
 };
