@@ -2,9 +2,9 @@ import loadable from '@loadable/component'
 
 import App from "./App";
 
-const Home = loadable(() => import("./pages/Home"), { ssr: false })
-const About = loadable(() => import("./pages/About"), { ssr: false })
-const NotFound = loadable(() => import("./pages/NotFound"), { ssr: false })
+const Home = loadable(() => import("./pages/Home"), { ssr: true })
+const About = loadable(() => import("./pages/About"), { ssr: true })
+const NotFound = loadable(() => import("./pages/NotFound"), { ssr: true })
 
 
 export default [

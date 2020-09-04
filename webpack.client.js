@@ -3,21 +3,44 @@ const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const config = {
   mode: 'development',
   entry: ["./client/index.js"],
 
-  plugins: [new HtmlWebpackPlugin({
-    template: "./client/bootup.html",
-    filename: 'bootup.html'
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./client/bootup.html",
+      filename: 'bootup.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contentHash].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      canPrint: true
+    })
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      test: /\.js(\?.*)?$/i,
+    })],
+  },
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           {
             loader: 'css-loader',
@@ -32,19 +55,12 @@ const config = {
     ],
   },
 
-
   output: {
     filename: "[name].[contentHash].js",
     path: path.resolve(__dirname, "dist"),
   },
 };
 
-let mergedConfigs = merge(baseConfig, config);
-
-if (mergedConfigs.mode === 'production') {
-  mergedConfigs = merge(mergedConfigs, {
-    //production configs goes here
-  });
-}
+mergedConfigs = merge(baseConfig, config);
 
 module.exports = mergedConfigs;

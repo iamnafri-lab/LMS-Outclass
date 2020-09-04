@@ -6,7 +6,7 @@ const baseConfig = require("./webpack.base");
 
 const config = {
   target: "node",
-
+  mode: 'development',
   entry: "./app.js",
   output: {
     filename: "bundle.js",
@@ -17,11 +17,5 @@ const config = {
 
 
 let mergedConfigs = merge(baseConfig, config);
-
-if (mergedConfigs.mode === 'production') {
-  mergedConfigs = merge(mergedConfigs, {
-    //production configs goes here
-  });
-}
 
 module.exports = mergedConfigs;

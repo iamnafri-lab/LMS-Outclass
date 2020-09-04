@@ -1,8 +1,7 @@
 const LoadablePlugin = require('@loadable/webpack-plugin')
 
-const mode = process.env.NODE_ENV || 'development';
 module.exports = {
-  mode,
+
   module: {
     rules: [
       {

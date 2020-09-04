@@ -27,6 +27,7 @@ app.get("*", (req, res) => {
   Promise.all(loadDataPromises).then(async () => {
     const context = {};
     const markup = await renderer(req, store, context);
+
     if (context.notFound === true) res.status(404);
 
     res.send(markup);
