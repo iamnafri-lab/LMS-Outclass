@@ -2,37 +2,39 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const baseConfig = require("./webpack.base");
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const config = {
-  mode: 'development',
+  mode: "development",
   entry: ["./client/index.js"],
 
   plugins: [
     new HtmlWebpackPlugin({
       template: "./client/bootup.html",
-      filename: 'bootup.html'
+      filename: "bootup.html",
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contentHash].css',
+      filename: "[name].[contentHash].css",
     }),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.optimize\.css$/g,
-      cssProcessor: require('cssnano'),
+      cssProcessor: require("cssnano"),
       cssProcessorPluginOptions: {
-        preset: ['default', { discardComments: { removeAll: true } }],
+        preset: ["default", { discardComments: { removeAll: true } }],
       },
-      canPrint: true
-    })
+      canPrint: true,
+    }),
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({
-      test: /\.js(\?.*)?$/i,
-    })],
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -43,18 +45,17 @@ const config = {
           MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               url: false,
             },
           },
           // Compiles Sass to CSS
-          'sass-loader',
+          "sass-loader",
         ],
       },
     ],
   },
-
 
   output: {
     filename: "[name].[contentHash].js",
