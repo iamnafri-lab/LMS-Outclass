@@ -39,6 +39,30 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.html$/i,
+        use: ["html-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|gif|svg)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[hash].[ext]",
+            outputPath: "img",
+          },
+        },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[hash].[ext]",
+            outputPath: "fonts",
+          },
+        },
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
@@ -47,9 +71,10 @@ const config = {
           {
             loader: "css-loader",
             options: {
-              url: false,
+              // url: false,
             },
           },
+
           // Compiles Sass to CSS
           "sass-loader",
         ],
