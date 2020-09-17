@@ -43,26 +43,6 @@ const config = {
         use: ["html-loader"],
       },
       {
-        test: /\.(png|svg|jpg|gif|svg)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[hash].[ext]",
-            outputPath: "img",
-          },
-        },
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[hash].[ext]",
-            outputPath: "fonts",
-          },
-        },
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
