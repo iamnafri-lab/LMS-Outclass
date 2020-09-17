@@ -44,8 +44,6 @@
     "@loadable/babel-plugin": "^5.13.0",
     "@loadable/webpack-plugin": "^5.13.0",
     "babel-loader": "^8.1.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^4.2.2",
     "file-loader": "^6.1.0",
     "html-loader": "^1.3.0",
