@@ -21,27 +21,26 @@ const routeRegisterer = require("./startup/routes");
 routeRegisterer(app);
 
 app.use(express.static("dist"));
+
 app.get("*", (req, res) => {
   const store = createServerStore();
   const loadDataPromises = matchRoutes(Routes, req.path).map(({ route }) => {
     return route.component.loadData ? route.component.loadData() : null;
   });
 
-  Promise.all(loadDataPromises)
-    .then(async () => {
-      const context = {};
-      const markup = await renderer(req, store, context);
+  Promise.all(loadDataPromises).then(async () => {
+    const context = {};
+    const markup = await renderer(req, store, context);
 
-      if (context.notFound === true) res.status(404);
+    if (context.notFound === true) res.status(404);
 
-      res.send(markup);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(err);
-    });
+    res.send(markup);
+  });
 });
 
+//registering errorhandler
+const { exceptionHandler } = require("./middlewares/errors");
+app.use(exceptionHandler);
 const server = http.createServer(app);
 
 const port = process.env.PORT || 8080;
