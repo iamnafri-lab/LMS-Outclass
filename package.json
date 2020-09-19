@@ -8,10 +8,10 @@
     "start": "node build/bundle.js",
     "dev": "npm-run-all --parallel dev:*",
     "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
-    "dev:build-server": "webpack --config webpack.server.js --watch",
-    "dev:build-client": "webpack --config webpack.client.js --watch",
-    "build:server": "webpack --config webpack.server.js",
-    "build:client": "webpack --config webpack.client.js"
+    "dev:build-server": "webpack --config webpack.server.js --mode=development --watch",
+    "dev:build-client": "webpack --config webpack.client.js --mode=development --watch",
+    "build:server": "webpack --config webpack.server.js --mode=production",
+    "build:client": "webpack --config webpack.client.js --mode=production"
   },
   "keywords": [],
   "author": "",
@@ -55,6 +55,7 @@
     "nodemon": "^2.0.4",
     "sass": "^1.26.10",
     "sass-loader": "^10.0.1",
+    "source-map-support": "^0.5.19",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.1.0",
     "webpack": "^4.44.1",

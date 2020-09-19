@@ -32,4 +32,5 @@ module.exports = {
     ],
   },
   plugins: [new WebpackCleanupPlugin(), new LoadablePlugin()],
+  devtool: "source-map",
 };

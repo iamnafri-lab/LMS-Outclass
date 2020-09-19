@@ -29,7 +29,7 @@ const config = {
     }),
   ],
   optimization: {
-    minimize: true,
+    minimize: process.env.NODE_ENV === "production" ? true : false,
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
