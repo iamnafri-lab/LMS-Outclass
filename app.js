@@ -24,8 +24,11 @@ app.use(express.static("dist"));
 
 app.get("*", (req, res) => {
   const store = createServerStore();
-  const loadDataPromises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.component.loadData ? route.component.loadData() : null;
+  const loadDataPromises = matchRoutes(Routes, req.path).map((matchedRoute) => {
+    const { route } = matchedRoute;
+    return route.component.loadData
+      ? route.component.loadData({ store, matchedRoute })
+      : null;
   });
 
   Promise.all(loadDataPromises).then(async () => {
